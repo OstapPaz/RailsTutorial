@@ -6,6 +6,9 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
+      <% session.each do |key, value| %>
+      <%=  "#{key}:#{value}"%>
+      <% end %>
     </section>
   </aside>
 </div>
