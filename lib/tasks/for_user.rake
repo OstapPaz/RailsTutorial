@@ -5,13 +5,12 @@ namespace :for_user do
   task adds: :environment do
     pass = Faker::Internet.password(8)
 
-
-    unless User.find_by(name: "Bruce Wayne")
-    User.create(name: "Bruce Wayne",
-                email: Faker::Internet.email,
-                activated: true,
-                admin: true,
-                password: pass, password_confirmation: pass)
+    unless User.exists?(name: "Bruce Wayne")
+      User.create(name: "Bruce Wayne",
+                  email: Faker::Internet.email,
+                  activated: true,
+                  admin: true,
+                  password: pass, password_confirmation: pass)
     end
 
 

@@ -39,12 +39,25 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  #after_create :async_create_archive, on: :create
+
+  after_create :async_send_activation_mail, on: :create
 
 
+  def async_send_activation_mail
+    #Resque.enqueue(SendMail, self)
+    SendMail.perform(self)
+    #UserMailer.account_activation(self).deliver_now
+    puts "send activation email checker _------------------------------------------------------------------------------"
+  end
 
 
+  # def async_create_archive(branch = 'default_branch')
+  #   Resque.enqueue(Archive, id, branch)
+  # end
 
-  # Returns the hash digest of the given string.
+
+  #Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                BCrypt::Engine.cost
@@ -55,7 +68,7 @@ class User < ApplicationRecord
 
 
 
-  # Returns random token
+  #Returns random token
   def User.new_token
     SecureRandom.urlsafe_base64
   end
@@ -65,8 +78,8 @@ class User < ApplicationRecord
 
 
   def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+    self.remember_token = ActiveSupport::MessageEncryptor.new(self.id)
+    update_attribute(:remember_digest, remember_token)
   end
 
 

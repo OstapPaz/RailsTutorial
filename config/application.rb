@@ -1,7 +1,14 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'resque'
+# send errors which occur in background jobs to redis and airbrake
+require 'resque/failure/multiple'
+require 'resque/failure/redis'
 
+Resque::Failure::Multiple.classes = [Resque::Failure::Redis]
+Resque::Failure.backend = Resque::Failure::Multiple
+require 'pry'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -20,3 +27,9 @@ module SampleApp
 
   end
 end
+
+ActiveRecord::SessionStore::Session.table_name = 'sessions'
+ActiveRecord::SessionStore::Session.primary_key = 'session_id'
+ActiveRecord::SessionStore::Session.data_column_name = 'data'
+ActiveRecord::SessionStore::Session.serializer = :json
+

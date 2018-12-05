@@ -8,6 +8,9 @@
   </h2>
 
   <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+
+  <%= react_component("HelloWorld", { greeting: "Hello from react-rails." }) %>
+
 </div>
 
 <%= link_to image_tag("rails.png", alt: "Rails logo"),
