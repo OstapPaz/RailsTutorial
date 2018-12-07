@@ -21,6 +21,7 @@ gem 'activerecord-session_store'
 gem 'resque'
 gem 'webpacker', '~> 3.5'
 gem 'react-rails'
+gem 'rake', '12.3.1'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

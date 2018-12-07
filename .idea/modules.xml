@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/RailsTutorial-master.iml" filepath="$PROJECT_DIR$/.idea/RailsTutorial-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/resque.iml" filepath="$PROJECT_DIR$/.idea/modules/resque.iml" />
     </modules>
   </component>
 </project>
