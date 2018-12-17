@@ -9,10 +9,21 @@ describe User do
     end
 
     it 'user should be valid' do
-      @user.valid?.should == true
+      expect(@user).to be_valid
     end
 
+    it 'user.name should have validation' do
+      @user.name = "   "
+      expect(@user).to_not be_valid
+    end
 
+    it 'user.email should have validation' do
+      @user.email = "   "
+      expect(@user).to_not be_valid
+    end
 
   end
+
 end
+
+
